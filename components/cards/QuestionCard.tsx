@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import RenderTag from "../shared/RenderTag";
 
 interface QuestionCardProps {
   _id: number;
@@ -36,6 +37,11 @@ const QuestionCard = ({
           </Link>
         </div>
         {/*If signed in add edit and delete actions*/}
+      </div>
+      <div className="mt-35 flex flex-wrap gap-2">
+        {tags.map((tag) => (
+          <RenderTag key={tag._id} _id={tag._id} name={tag.name} />
+        ))}
       </div>
     </div>
   );
