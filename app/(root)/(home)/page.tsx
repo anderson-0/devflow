@@ -5,7 +5,6 @@ import NoResult from "@/components/shared/NoResult";
 import LocalSearchBar from "@/components/shared/search/LocalSearchBar";
 import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filters";
-import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 
 const questions: any[] = [
@@ -23,7 +22,7 @@ const questions: any[] = [
     },
     upvotes: 10,
     views: 100,
-    answers: 3,
+    answers: [],
     createdAt: new Date(),
   },
   {
@@ -40,7 +39,7 @@ const questions: any[] = [
     },
     upvotes: 11,
     views: 200,
-    answers: 1,
+    answers: [],
     createdAt: new Date(),
   },
 ];
