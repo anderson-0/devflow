@@ -54,10 +54,7 @@ const UserSchema = new Schema({
     type: Number,
     default: 0, // You can set a default value if needed
   },
-  saved: [{
-    type: Schema.Types.ObjectId,
-    ref: 'SomeModel', // Replace 'SomeModel' with the appropriate reference model's name if you're referencing other documents
-  }],
+  saved: [{ type: Schema.Types.ObjectId, ref: 'Question' }],
   joinedAt: {
     type: Date,
     required: true,
