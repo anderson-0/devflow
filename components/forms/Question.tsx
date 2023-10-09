@@ -16,14 +16,15 @@ import {
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { QuestionsSchema } from "@/lib/validations";
-import { KeyboardEvent, useRef } from "react";
+import { KeyboardEvent, useRef, useState } from "react";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
-import { type } from "os";
+
+const type: any = "create";
 
 const Question = () => {
   const editorRef = useRef(null);
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const form = useForm<z.infer<typeof QuestionsSchema>>({
     resolver: zodResolver(QuestionsSchema),
     defaultValues: {
@@ -35,9 +36,15 @@ const Question = () => {
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof QuestionsSchema>) {
+    setIsSubmitting(true);
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
+    try {
+    } catch (error) {
+    } finally {
+      setIsSubmitting(false);
+    }
   }
   function handleInputKeyDown(
     e: KeyboardEvent<HTMLInputElement>,
@@ -206,7 +213,17 @@ const Question = () => {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button
+          type="submit"
+          className="primary-gradient w-fit !text-light-900"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? (
+            <>{type === "edit" ? "Editing..." : "Posting..."}</>
+          ) : (
+            <>{type === "edit" ? "Edit Question" : "Ask a Question"}</>
+          )}
+        </Button>
       </form>
     </Form>
   );
