@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { Editor } from "@tinymce/tinymce-react";
 import * as z from "zod";
 import {
   Form,
@@ -15,8 +16,11 @@ import {
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { QuestionsSchema } from "@/lib/validations";
+import { useRef } from "react";
 
 const Question = () => {
+  const editorRef = useRef(null);
+
   const form = useForm<z.infer<typeof QuestionsSchema>>({
     resolver: zodResolver(QuestionsSchema),
     defaultValues: {
@@ -72,7 +76,42 @@ const Question = () => {
                 <span className="text-primary-500">*</span>
               </FormLabel>
               <FormControl className="mt-3.5"></FormControl>
-              {/*TODO: Add an editor component */}
+              <Editor
+                apiKey={process.env.NEXT_PUBLIC_TINY_EDITOR_API_KEY}
+                onInit={(evt, editor) => {
+                  // @ts-ignore
+                  editorRef.current = editor;
+                }}
+                initialValue=""
+                init={{
+                  height: 350,
+                  menubar: false,
+                  plugins: [
+                    "advlist",
+                    "autolink",
+                    "lists",
+                    "link",
+                    "image",
+                    "charmap",
+                    "print",
+                    "preview",
+                    "anchor",
+                    "searchreplace",
+                    "visualblocks",
+                    "codesample",
+                    "fullscreen",
+                    "insertdatetime",
+                    "media",
+                    "table",
+                    "wordcount",
+                  ],
+                  toolbar:
+                    "undo redo | codesample | " +
+                    "bold italic forecolor | alignleft aligncenter |" +
+                    "alignright alignjustify | bullist numlist",
+                  content_style: "body { font-family:Inter; font-size:16px }",
+                }}
+              />
               <FormDescription className="body-regular mt-2.5 text-light-500">
                 Introduce the problem and expand on what you put in the title.
                 Minimum 20 characters.
