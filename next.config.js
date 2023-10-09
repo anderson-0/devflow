@@ -2,8 +2,8 @@
 const nextConfig = {
   experimental: {
     serverActions: true,
-    mdxRs: true,
-    serverComponentsExternalPackages: ["mongoose"],
+    mdxRs: true, // compile mds files using the new rust compiler
+    serverComponentsExternalPackages: ["mongoose"], // Dependencies used inside Server Components and Route Handlers will automatically be bundled by Next.js.
   },
 };
 
