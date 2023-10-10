@@ -32,5 +32,5 @@ const TagSchema = new Schema({
   },
 });
 
-const Tag = models.Question || model<ITag>('Tag', TagSchema);
+const Tag = models.Tag || model<ITag>('Tag', TagSchema);
 export default Tag;
