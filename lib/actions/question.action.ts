@@ -6,16 +6,14 @@ import Tag from '@/database/tag.model';
 
 export async function createQuestion(params) {
   try {
-    connectToDatabase();
+    await connectToDatabase();
     const { title, content, tags, author, path } = params;
 
     // Create the question
     const question = await Question.create({
       title,
       content,
-      tags,
       author,
-      path,
     });
 
     const tagDocuments: any[] = []
@@ -32,7 +30,11 @@ export async function createQuestion(params) {
 
     // Add the tags to the question
     await Question.findByIdAndUpdate(question._id, { $push: { tags: { $each: tagDocuments } } });
-  } catch (error) {
 
+    // Create an interaction record for the user's ask_question action
+
+    // Increment the user author's reputation by +5 for creation a question
+  } catch (error) {
+    console.log(error);
   }
 }

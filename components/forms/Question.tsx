@@ -20,12 +20,19 @@ import { KeyboardEvent, useRef, useState } from "react";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
 import { createQuestion } from "@/lib/actions/question.action";
+import { usePathname, useRouter } from "next/navigation";
 
 const type: any = "create";
-
-const Question = () => {
+interface QuestionProps {
+  mongoUserId: string;
+}
+const Question = ({ mongoUserId }: QuestionProps) => {
   const editorRef = useRef(null);
+  console.log(`mongoUserId: ${mongoUserId}`);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
+
   const form = useForm<z.infer<typeof QuestionsSchema>>({
     resolver: zodResolver(QuestionsSchema),
     defaultValues: {
@@ -42,7 +49,14 @@ const Question = () => {
     // ✅ This will be type-safe and validated.
     console.log(values);
     try {
-      await createQuestion({});
+      await createQuestion({
+        title: values.title,
+        content: values.explanation,
+        explanation: values.explanation,
+        tags: values.tags,
+        author: JSON.parse(mongoUserId),
+      });
+      // router.push("/");
     } catch (error) {
     } finally {
       setIsSubmitting(false);
