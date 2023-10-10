@@ -56,7 +56,7 @@ const Question = ({ mongoUserId }: QuestionProps) => {
         tags: values.tags,
         author: JSON.parse(mongoUserId),
       });
-      // router.push("/");
+      router.push("/");
     } catch (error) {
     } finally {
       setIsSubmitting(false);
