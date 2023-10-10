@@ -28,7 +28,6 @@ interface QuestionProps {
 }
 const Question = ({ mongoUserId }: QuestionProps) => {
   const editorRef = useRef(null);
-  console.log(`mongoUserId: ${mongoUserId}`);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
@@ -47,7 +46,6 @@ const Question = ({ mongoUserId }: QuestionProps) => {
     setIsSubmitting(true);
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
     try {
       await createQuestion({
         title: values.title,

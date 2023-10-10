@@ -9,7 +9,6 @@ const AskQuestion = async () => {
   const userId = "clerk12345"; // fake user id
   if (!userId) redirect("/sign-in");
   const mongoUser = await getUserById({ userId });
-  console.log(mongoUser);
 
   return (
     <div>

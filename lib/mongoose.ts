@@ -4,7 +4,7 @@ let isConnected: boolean = false;
 export const connectToDatabase = async () => {
   mongoose.set('strictQuery', false);
   if (!process.env.MONGODB_URL) {
-    return console.log('Missng MongoDB URL');
+    return console.log('Missing MongoDB URL');
   }
 
   if (isConnected) {
