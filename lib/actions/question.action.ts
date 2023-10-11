@@ -5,6 +5,7 @@ import { connectToDatabase } from '../mongoose';
 import Tag from '@/database/tag.model';
 import { CreateQuestionParams, GetQuestionsParams } from './shared.types';
 import User from '@/database/user.model';
+import { revalidatePath } from 'next/cache';
 
 export async function getQuestions(params: GetQuestionsParams) {
   try {
@@ -47,7 +48,7 @@ export async function createQuestion(params: CreateQuestionParams) {
 
     // Add the tags to the question
     await Question.findByIdAndUpdate(question._id, { $push: { tags: { $each: tagDocuments } } });
-
+    revalidatePath(path)
     // Create an interaction record for the user's ask_question action
 
     // Increment the user author's reputation by +5 for creation a question

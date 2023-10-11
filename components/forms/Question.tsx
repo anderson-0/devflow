@@ -50,9 +50,9 @@ const Question = ({ mongoUserId }: QuestionProps) => {
       await createQuestion({
         title: values.title,
         content: values.explanation,
-        explanation: values.explanation,
         tags: values.tags,
         author: JSON.parse(mongoUserId),
+        path: pathname,
       });
       router.push("/");
     } catch (error) {
